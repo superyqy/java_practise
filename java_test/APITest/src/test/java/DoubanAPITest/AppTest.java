@@ -3,12 +3,53 @@
  */
 package DoubanAPITest;
 
+import java.io.*;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static io.restassured.RestAssured.*;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.Test;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+
+    public String topFilm = "/v2/movie/top250";
+    public String result;
+
+    @Before
+    public void setup(){
+        baseURI = "http://api.douban.com";
     }
+
+//    @Test
+//    public void testAppHasAGreeting() {
+//        App classUnderTest = new App();
+//        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+//    }
+
+    @Test
+    public void testDoubanApi(){
+        Response resp = given()
+//                .header()
+                .accept(ContentType.JSON)
+                .when()
+                .log().all()
+                .get(topFilm)
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(200)
+                .extract().response();
+
+//        result = resp.body().toString();
+//        System.out.println(result);
+    }
+
 }

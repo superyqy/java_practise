@@ -6,26 +6,30 @@ package DoubanAPITest;
 import java.io.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import static io.restassured.RestAssured.*;
+
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.junit.Assert.*;
+
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+
+import testData.EnvData;
 
 public class AppTest {
 
     public String topFilm = "/v2/movie/top250";
-    public String result;
 
     @Before
     public void setup(){
-        baseURI = "http://api.douban.com";
+        baseURI = EnvData.doubanURL;
     }
 
 //    @Test
@@ -35,9 +39,12 @@ public class AppTest {
 //    }
 
     @Test
-    public void testDoubanApi(){
+    public void testDoubanApi() throws IOException{
+
         Response resp = given()
 //                .header()
+                .queryParam("start",'0')
+                .queryParam("count",'1')
                 .accept(ContentType.JSON)
                 .when()
                 .log().all()
@@ -47,9 +54,21 @@ public class AppTest {
                 .assertThat()
                 .statusCode(200)
                 .extract().response();
-
+//        MAP<String, String> cookie = resp.cookies();
+//        System.out.print(cookie);
 //        result = resp.body().toString();
 //        System.out.println(result);
+
+        int statusCode= resp.getStatusCode();
+        writeFile(statusCode,topFilm);
+    }
+
+    public void writeFile(int statusCode, String caseUrl) throws IOException{
+
+        FileWriter outFile = new FileWriter(EnvData.outoutFile);
+        BufferedWriter output = new BufferedWriter(outFile);
+        output.write(caseUrl+" 's statusCode is: "+statusCode);
+        output.close();
     }
 
 }

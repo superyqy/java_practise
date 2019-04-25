@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author xwyin
- *
- */
-module helloworld {
-}

@@ -14,7 +14,10 @@ plugins {
     id 'application'
 }
 
-
+//支持编译时的中文内容
+tasks.withType(JavaCompile){
+    options.encoding="UTF-8"
+}
 
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -25,7 +28,7 @@ repositories {
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
-
+    testImplementation 'io.rest-assured:json-path:3.3.0'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
     //Use Rest Assured
@@ -37,6 +40,8 @@ dependencies {
     //Use Junit test framework
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.tngtech.java:junit-dataprovider:1.10.0'
+    //Use google json
+    testImplementation 'com.google.code.gson:gson:2.8.5'
     
     
 }

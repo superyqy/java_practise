@@ -4,6 +4,8 @@
 package DoubanAPITest;
 
 import java.io.*;
+import java.util.Map;
+import java.util.List;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
@@ -40,6 +42,7 @@ public class AppTest {
 
     @Test
     public void testDoubanApi() throws IOException{
+        String title = "not found";
 
         Response resp = given()
 //                .header()
@@ -55,12 +58,21 @@ public class AppTest {
                 .statusCode(200)
                 .extract().response();
 //        MAP<String, String> cookie = resp.cookies();
-//        System.out.print(cookie);
-//        result = resp.body().toString();
-//        System.out.println(result);
 
-        int statusCode= resp.getStatusCode();
-        writeFile(statusCode,topFilm);
+        List<Map<String, String>> body = resp.getBody().jsonPath().getList("subjects");
+        assertThat(body.size(),greaterThan(0));
+        for(int i=0;i<body.size();i++){
+            Map<String, String> content = body.get(i);
+            if(content.containsKey("title")) {
+                title = content.get("title");
+                break;
+            }
+
+        }
+        assertThat(title,is("肖申克的救赎"));
+
+//        int statusCode= resp.getStatusCode();
+//        writeFile(statusCode,topFilm);
     }
 
     public void writeFile(int statusCode, String caseUrl) throws IOException{
@@ -69,6 +81,12 @@ public class AppTest {
         BufferedWriter output = new BufferedWriter(outFile);
         output.write(caseUrl+" 's statusCode is: "+statusCode);
         output.close();
+    }
+
+    public void testValueType(){
+        int a = 50;
+        assertThat(a,allOf(notNullValue(),instanceOf(Integer.class)));
+        assertThat(a,notNullValue());
     }
 
 }

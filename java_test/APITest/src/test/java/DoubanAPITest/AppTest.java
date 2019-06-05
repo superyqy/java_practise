@@ -56,6 +56,7 @@ public class AppTest {
                 .log().all()
                 .assertThat()
                 .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("douban/testJsonSchema.json"))
                 .extract().response();
 //        MAP<String, String> cookie = resp.cookies();
 

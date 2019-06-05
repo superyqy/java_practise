@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {},
+  "type": "object",
+  "title": "test schema",
+  "required": ["totalPages", "items"],
+  "properties": {
+    "totalPages": {
+      "type": "integer",
+      "title": "total pages",
+      "minimum": 0
+    },
+    "items": {
+      "type": "array",
+      "description": "all items",
+      "items": {
+        "type": "object",
+        "title": "each item's schema",
+        "required": ["id", "name","itemType"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "item id",
+            "pattern": "^\\w{8}-\\w{4}-\\w{12}$"
+          },
+          "name": {
+            "type": ["null", "string"],
+            "minLength": 1,
+            "pattern": "^(.*)$"
+          },
+          "itemType": {
+            "type": "string",
+            "enum": ["news", "topic", "video"]
+          }
+        },
+        "additionalProperties": false
+      },
+      "additionalItems": false,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

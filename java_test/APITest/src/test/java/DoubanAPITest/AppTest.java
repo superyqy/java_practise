@@ -13,6 +13,7 @@ import static io.restassured.RestAssured.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
 
 import static org.hamcrest.Matchers.*;
@@ -22,10 +23,13 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 
+import org.junit.runners.MethodSorters;
 import utility.DatabaseConnection;
 
 import testData.EnvData;
 
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)    //junit设置test执行顺序
 public class AppTest {
 
     public String topFilm = "/v2/movie/top250";
@@ -56,6 +60,7 @@ public class AppTest {
                 .assertThat()
                 .statusCode(200)
                 .body(matchesJsonSchemaInClasspath("douban/testJsonSchema.json"))
+                .body("name", is("tester"))
                 .extract().response();
 
 //        MAP<String, String> cookie = resp.cookies();

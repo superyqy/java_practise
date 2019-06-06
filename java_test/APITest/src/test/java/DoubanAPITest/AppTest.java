@@ -4,6 +4,7 @@
 package DoubanAPITest;
 
 import java.io.*;
+import java.sql.*;
 import java.util.Map;
 import java.util.List;
 import io.restassured.http.ContentType;
@@ -14,8 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
-
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -23,22 +22,22 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 
+import utility.DatabaseConnection;
+
 import testData.EnvData;
 
 public class AppTest {
 
     public String topFilm = "/v2/movie/top250";
+    DatabaseConnection connDB = new DatabaseConnection();
+    Connection conn = (Connection) connDB.connectDB();
 
     @Before
     public void setup(){
         baseURI = EnvData.doubanURL;
     }
 
-//    @Test
-//    public void testAppHasAGreeting() {
-//        App classUnderTest = new App();
-//        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
-//    }
+
 
     @Test
     public void testDoubanApi() throws IOException{
@@ -58,6 +57,7 @@ public class AppTest {
                 .statusCode(200)
                 .body(matchesJsonSchemaInClasspath("douban/testJsonSchema.json"))
                 .extract().response();
+
 //        MAP<String, String> cookie = resp.cookies();
 
         List<Map<String, String>> body = resp.getBody().jsonPath().getList("subjects");
@@ -88,6 +88,28 @@ public class AppTest {
         int a = 50;
         assertThat(a,allOf(notNullValue(),instanceOf(Integer.class)));
         assertThat(a,notNullValue());
+    }
+
+
+    public void executeUpdate(String sql) throws SQLException{
+//        String sql = "update top(1) testTable, set name='test' where id=100";
+        Statement ps = conn.prepareStatement(sql);
+        ((PreparedStatement) ps).executeUpdate();
+        conn.close();
+    }
+
+    public String executeQuery(String sql, int columnIndex) throws SQLException{
+        String result = "";
+
+        Statement ps = conn.prepareStatement(sql);
+        ResultSet rs = ((PreparedStatement) ps).executeQuery();
+
+        if(rs.next()){
+            result = rs.getString(columnIndex);
+        }
+
+        return result;
+
     }
 
 }

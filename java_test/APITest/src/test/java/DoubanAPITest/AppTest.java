@@ -34,7 +34,11 @@ public class AppTest {
 
     public String topFilm = "/v2/movie/top250";
     DatabaseConnection connDB = new DatabaseConnection();
-    Connection conn = (Connection) connDB.connectDB();
+//    try{
+//        Connection conn = (Connection) connDB.connectDB();
+//    }catch(IOException e){
+//        e.printStackTrace();
+//    }
 
     @Before
     public void setup(){
@@ -96,25 +100,25 @@ public class AppTest {
     }
 
 
-    public void executeUpdate(String sql) throws SQLException{
-//        String sql = "update top(1) testTable, set name='test' where id=100";
-        Statement ps = conn.prepareStatement(sql);
-        ((PreparedStatement) ps).executeUpdate();
-        conn.close();
-    }
-
-    public String executeQuery(String sql, int columnIndex) throws SQLException{
-        String result = "";
-
-        Statement ps = conn.prepareStatement(sql);
-        ResultSet rs = ((PreparedStatement) ps).executeQuery();
-
-        if(rs.next()){
-            result = rs.getString(columnIndex);
-        }
-
-        return result;
-
-    }
+//    public void executeUpdate(String sql) throws SQLException{
+////        String sql = "update top(1) testTable, set name='test' where id=100";
+//        Statement ps = conn.prepareStatement(sql);
+//        ((PreparedStatement) ps).executeUpdate();
+//        conn.close();
+//    }
+//
+//    public String executeQuery(String sql, int columnIndex) throws SQLException{
+//        String result = "";
+//
+//        Statement ps = conn.prepareStatement(sql);
+//        ResultSet rs = ((PreparedStatement) ps).executeQuery();
+//
+//        if(rs.next()){
+//            result = rs.getString(columnIndex);
+//        }
+//
+//        return result;
+//
+//    }
 
 }

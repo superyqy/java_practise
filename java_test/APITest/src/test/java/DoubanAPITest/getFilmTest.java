@@ -30,7 +30,7 @@ import testData.EnvData;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)    //junit设置test执行顺序
-public class AppTest {
+public class getFilmTest {
 
     public String topFilm = "/v2/movie/top250";
     DatabaseConnection connDB = new DatabaseConnection();
@@ -120,5 +120,6 @@ public class AppTest {
 //        return result;
 //
 //    }
+
 
 }

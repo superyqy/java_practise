@@ -5,4 +5,5 @@ public class EnvData {
     public static String outoutFile = "/Users/xwyin/Documents/workspace/yqy_practise/java_test/output/result.txt";
     public static String appid = "";
     public static String securityKey = "";
+    public static String postmanEchoURL = "https://postman-echo.com";
 }

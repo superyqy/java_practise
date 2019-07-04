@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import static io.restassured.RestAssured.*;
 import io.restassured.response.Response;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import org.junit.Before;
 import org.junit.Test;
 import utility.MD5;
@@ -32,7 +34,10 @@ public class translateTest {
         String query = "测试";
         String from = "zh";
         String to="en";
+        Long l1 = new Long(100);
         String result = "";
+
+
         Map<String, String> params = buildParams(query, from, to);
         Response resp =given()
                 .body(params)
@@ -44,10 +49,11 @@ public class translateTest {
                 .statusCode(52000)
                 .extract().response();
 
+        long responseTime = resp.getTime();
+        assertThat(l1, greaterThan(responseTime));
         result = resp.body().toString();
         System.out.println(result);
 
-//        return result;
     }
 
     private Map<String, String> buildParams(String query, String from, String to) {

@@ -52,7 +52,7 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'DoubanAPITest.App'
+//mainClassName = 'DoubanAPITest.App'
 
 //不测试某些指定的Java文件
 test{

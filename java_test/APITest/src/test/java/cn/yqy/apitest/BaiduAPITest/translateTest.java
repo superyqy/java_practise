@@ -33,7 +33,11 @@ public class translateTest {
 
     @Test
 //    @Ignore   不执行用例
-    public void getTransResult() {
+    public void testTranslate(){
+        getTransResult();
+    }
+
+    public translateTest getTransResult() {
         String query = "测试";
         String from = "zh";
         String to="en";
@@ -60,6 +64,7 @@ public class translateTest {
         String id = "12345";
         ArrayList data = resp.path(String.format("data.recentFiveDay.findAll{it.id==\"%s\"}.findAll{it.overtime=false}.id", id));
 
+        return this;
     }
 
     private Map<String, String> buildParams(String query, String from, String to) {

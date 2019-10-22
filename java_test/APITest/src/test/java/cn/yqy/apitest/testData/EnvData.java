@@ -1,4 +1,4 @@
-package testData;
+package cn.yqy.apitest.testData;
 
 public class EnvData {
     public static String doubanURL = "http://api.douban.com";

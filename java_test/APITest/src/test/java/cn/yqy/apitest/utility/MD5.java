@@ -1,4 +1,4 @@
-package utility;
+package cn.yqy.apitest.utility;
 
 import java.io.*;
 import java.security.MessageDigest;

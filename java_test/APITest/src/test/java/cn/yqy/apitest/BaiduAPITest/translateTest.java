@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import java.util.ArrayList;
 import cn.yqy.apitest.utility.MD5;
@@ -31,6 +32,7 @@ public class translateTest {
     }
 
     @Test
+//    @Ignore   不执行用例
     public void getTransResult() {
         String query = "测试";
         String from = "zh";

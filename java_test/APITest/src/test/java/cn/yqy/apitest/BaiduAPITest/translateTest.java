@@ -8,8 +8,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import org.junit.Before;
 import org.junit.Test;
-import utility.MD5;
-import testData.EnvData;
+import java.util.ArrayList;
+import cn.yqy.apitest.utility.MD5;
+import cn.yqy.apitest.testData.EnvData;
 
 
 
@@ -53,6 +54,9 @@ public class translateTest {
         assertThat(l1, greaterThan(responseTime));
         result = resp.body().toString();
         System.out.println(result);
+
+        String id = "12345";
+        ArrayList data = resp.path(String.format("data.recentFiveDay.findAll{it.id==\"%s\"}.findAll{it.overtime=false}.id", id));
 
     }
 

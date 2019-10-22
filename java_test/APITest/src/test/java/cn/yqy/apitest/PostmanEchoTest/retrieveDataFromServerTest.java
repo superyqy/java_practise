@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.Map;
 import java.util.HashMap;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import testData.EnvData;
+import cn.yqy.apitest.testData.EnvData;
 
 
 public class retrieveDataFromServerTest {

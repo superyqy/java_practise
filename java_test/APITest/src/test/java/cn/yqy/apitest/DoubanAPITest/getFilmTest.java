@@ -4,7 +4,6 @@
 package cn.yqy.apitest.DoubanAPITest;
 
 import java.io.*;
-import java.sql.*;
 import java.util.Map;
 import java.util.List;
 import io.restassured.http.ContentType;
@@ -14,19 +13,15 @@ import static io.restassured.RestAssured.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
-import org.junit.runner.RunWith;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-
 import org.junit.runners.MethodSorters;
-import utility.DatabaseConnection;
+import cn.yqy.apitest.utility.DatabaseConnection;
 
-import testData.EnvData;
+import cn.yqy.apitest.testData.EnvData;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)    //junit设置test执行顺序

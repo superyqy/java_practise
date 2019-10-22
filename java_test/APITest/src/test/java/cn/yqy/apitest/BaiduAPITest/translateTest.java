@@ -1,4 +1,4 @@
-package BaiduAPITest;
+package cn.yqy.apitest.BaiduAPITest;
 
 import java.util.HashMap;
 import java.util.Map;

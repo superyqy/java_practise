@@ -1,4 +1,4 @@
-package PostmanEchoTest;
+package cn.yqy.apitest.PostmanEchoTest;
 
 
 import static io.restassured.RestAssured.*;
